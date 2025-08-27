@@ -1,5 +1,4 @@
-const { withClerkMiddleware } = require('@clerk/nextjs/api');
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
