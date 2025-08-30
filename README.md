@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💥 Code Smasher  
 
-## Getting Started
+<img width="1280" height="720" alt="screenshot-for-readme-Photoroom" src="https://github.com/user-attachments/assets/26b3d76f-5980-492e-82c4-afb06b550f15" />
 
-First, run the development server:
+---
 
+🚀 **Code Smasher** is a modern **online SaaS code editor** with built-in **multi-language support, custom themes, execution history tracking, community code sharing, and flexible pricing plans. Whether you want to quickly test code snippets, share with others, or track your learning progress—Code Smasher is the IDE you can rely on.** 
+
+---
+
+## ✨ Features  
+
+- 💻 **10 Languages Supported** – Run your code instantly in multiple languages.  
+- 🎨 **Custom Themes** – Switch between 5 VSCode-inspired themes.  
+- ⚡ **Smart Output Handling** – Success & Error states with clarity.  
+- 💎 **Pricing Plans** – Free for beginners, Pro for professionals.  
+- 🤝 **Community Sharing** – Post and explore snippets from developers worldwide.  
+- 🔍 **Advanced Filtering & Search** – Never lose track of your code.  
+- 👤 **Profile with History Tracking** – Every execution saved under your account.  
+- 📊 **Dashboard & Insights** – Visualize your coding activity.  
+- ⚙️ **Custom Font Sizes** – Comfortable editing experience.  
+- 🔗 **Webhook Support** – Connect with external apps.  
+- 🌟 **Professional Deployment Walkthrough** – From dev to production with ease.  
+
+---
+
+## 📸 Screenshots
+
+### User Profile
+
+<img width="1599" height="890" alt="Screenshot 2025-08-28 082930" src="https://github.com/user-attachments/assets/388a8480-3d0a-4297-8854-078bb5d19e7e" />
+</br>
+</br>
+
+### Home Page
+
+<img width="1630" height="1005" alt="Screenshot 2025-08-28 082858" src="https://github.com/user-attachments/assets/07c8853a-ec69-4686-8da2-9b8e2992c569" />
+
+### Community Sharing
+
+<img width="1631" height="961" alt="Screenshot 2025-08-28 082950" src="https://github.com/user-attachments/assets/3a3e3f1c-b13c-40f0-84db-e40737076926" />
+
+
+
+---
+
+## 🛠️ Installation & Setup  
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/RahulSingh044/Code-Smasher.git
+cd code-smasher
+```
+### 2. Install Dependencies
+```bash
+npm install
+```
+### 3. Setup Environment Variables
+Create a .env.local file in the root directory and add the required keys:
+```bash
+NEXT_PUBLIC_CONVEX_URL=your_convex_url
+NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_api_key
+CLERK_SECRET_KEY=your_clerk_secret
+```
+### 4. Add these env to Convex Dashboard
+```bash
+CLERK_WEBHOOK_SECRET=
+LEMON_SQUEEZY_WEBHOOK_SECRET=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 5. Run Development Server
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
+## 🤝 Contributing
+We welcome contributions from the community!
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Fork the repo
+- Create a new branch (feature/your-feature)
+- Commit changes and open a PR
