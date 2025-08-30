@@ -74,34 +74,70 @@ export const deleteSnippet = mutation({
     }
 });
 
-export const starSnippet = mutation({
-    args: { snippetId: v.id("snippets") },
-
-    handler: async (ctx, args) => {
-        const identity = await ctx.auth.getUserIdentity();
-        if(!identity) {
-            throw new ConvexError("Unauthorized");
-        }
-
-        const existingStar = await ctx.db.query("snippetsStar")
-        .withIndex("by_snippet_user_id")
-        .filter((q) => q.eq(q.field("userId"), identity.subject) && q.eq(q.field("snippetId"), args.snippetId))
-        .first();
-
-        if(existingStar) {
-            // If already starred, remove the star
-            await ctx.db.delete(existingStar._id);
-            return { starred: false };
-        }
-
-        // Otherwise, create a new star
-        await ctx.db.insert("snippetsStar", {
-            snippetId: args.snippetId,
-            userId: identity.subject,
-        });
-        
+export const getSnippetStarState = query({
+  args: { snippetId: v.id("snippets") },
+  handler: async (ctx, { snippetId }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      const count = await ctx.db.query("snippetsStar").withIndex("by_snippet_id", q => q.eq("snippetId", snippetId)).collect();
+      return { count: count.length, alreadyStarred: false };
     }
-})
+
+    const stars = await ctx.db.query("snippetsStar").withIndex("by_snippet_id", q => q.eq("snippetId", snippetId)).collect();
+    const alreadyStarred = stars.some(s => s.userId === identity.subject);
+
+    return { count: stars.length, alreadyStarred };
+  },
+});
+
+export const starSnippet = mutation({
+  args: { snippetId: v.id("snippets") },
+
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    // Check if this user has already starred this snippet
+    const existingStar = await ctx.db
+      .query("snippetsStar")
+      .withIndex("by_snippet_user_id")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("userId"), identity.subject),
+          q.eq(q.field("snippetId"), args.snippetId)
+        )
+      )
+      .first();
+
+    if (existingStar) {
+      // Already starred → remove it (unstar)
+      await ctx.db.delete(existingStar._id);
+    } else {
+      // Not starred yet → add star
+      await ctx.db.insert("snippetsStar", {
+        snippetId: args.snippetId,
+        userId: identity.subject,
+      });
+    }
+
+    // Always return latest star state
+    const allStars = await ctx.db
+      .query("snippetsStar")
+      .withIndex("by_snippet_id")
+      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+      .collect();
+
+    return {
+      starred: !existingStar, // true = just starred, false = just unstarred
+      count: allStars.length,
+    };
+  },
+});
+
+
+
 
 export const getAllSnippets = query({
     handler: async (ctx) => {
