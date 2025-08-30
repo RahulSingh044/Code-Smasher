@@ -22,9 +22,6 @@ async function Header() {
         userId: user?.id || "",
     })
 
-    console.log("Convex User:", convexUser);
-
-
     return (
         <div className="relative z-10 py-2">
             <div className="flex items-center lg:justify-between justify-center bg-[#0a0a0f]/80 backdrop-blur-xl p-6 mb-4 rounded-lg">

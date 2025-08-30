@@ -127,7 +127,6 @@ function EditorPanel() {
               automaticLayout: true,
               scrollBeyondLastLine: false,
               padding: { top: 16, bottom: 16 },
-              suggestion: true,
               renderWhitespace: "selection",
               fontFamily: '"Fira Code", "Cascadia Code", Consolas, monospace',
               fontLigatures: true,

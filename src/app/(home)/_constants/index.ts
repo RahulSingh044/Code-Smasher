@@ -1,5 +1,18 @@
-import { Monaco } from "@monaco-editor/react";
+import type { Monaco } from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
+
+type IStandaloneThemeData = editor.IStandaloneThemeData;
+type BuiltinTheme = "vs" | "vs-dark" | "hc-black";
+
+
 import { Theme } from "../../../../src/types/index";
+
+interface CustomThemeData {
+  base: BuiltinTheme;
+  inherit: boolean;
+  rules: IStandaloneThemeData["rules"];
+  colors: IStandaloneThemeData["colors"];
+}
 
 type LanguageConfig = Record<
   string,
@@ -343,9 +356,10 @@ export const THEMES: Theme[] = [
   { id: "github-dark", label: "GitHub Dark", color: "#0d1117" },
   { id: "monokai", label: "Monokai", color: "#272822" },
   { id: "solarized-dark", label: "Solarized Dark", color: "#002b36" },
+  { id: "one-dark", label: "One Dark", color: "#002b36" },
 ];
 
-export const THEME_DEFINITONS = {
+export const THEME_DEFINITONS:Record<string, CustomThemeData> = {
   "github-dark": {
     base: "vs-dark",
     inherit: true,
@@ -418,6 +432,31 @@ export const THEME_DEFINITONS = {
       "editor.selectionHighlightBackground": "#073642",
     },
   },
+"one-dark": {
+  base: "vs-dark",
+  inherit: true,
+  rules: [
+    { token: "comment", foreground: "5c6370" },
+    { token: "string", foreground: "98c379" },
+    { token: "keyword", foreground: "c678dd" },
+    { token: "number", foreground: "d19a66" },
+    { token: "type", foreground: "56b6c2" },
+    { token: "class", foreground: "e5c07b" },
+    { token: "function", foreground: "61afef" },
+    { token: "variable", foreground: "abb2bf" },
+    { token: "operator", foreground: "c678dd" },
+  ],
+  colors: {
+    "editor.background": "#282c34",
+    "editor.foreground": "#abb2bf",
+    "editorLineNumber.foreground": "#5c6370",
+    "editor.selectionBackground": "#3e4451",
+    "editor.lineHighlightBackground": "#2c313c",
+    "editorCursor.foreground": "#528bff",
+    "editor.selectionHighlightBackground": "#3e4451",
+  },
+},
+
 };
 
 // Helper function to define themes in Monaco
@@ -426,10 +465,7 @@ export const defineMonacoThemes = (monaco: Monaco) => {
     monaco.editor.defineTheme(themeName, {
       base: themeData.base,
       inherit: themeData.inherit,
-      rules: themeData.rules.map((rule) => ({
-        ...rule,
-        foreground: rule.foreground,
-      })),
+       rules: themeData.rules,
       colors: themeData.colors,
     });
   });

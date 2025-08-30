@@ -18,7 +18,6 @@ http.route({
     }
 
     const body = await request.text();
-    console.log("Raw body length:", body.length);
 
     // Convert Headers object to plain Record<string, string>
     const headersObj: Record<string, string> = {};
@@ -40,7 +39,6 @@ http.route({
     }
 
     if (evt.type === "user.created") {
-      console.log("Received Clerk webhook event:", evt.type, evt.data);
       const { id, email_addresses, first_name, last_name } = evt.data;
       const email = email_addresses[0]?.email_address || "";
       const name = `${first_name || ""} ${last_name || ""}`.trim();
